@@ -1,0 +1,26 @@
+<% menuHelper = (items) => {
+    let xhtmlMenu ='';
+    
+    items.forEach((menu) => {
+        if(menu.parent === 'false'){
+            xhtmlMenu += `<li class="mega-menu-item">
+                            <a href="${menu.link}" class="mega-menu-link">${menu.name}</a>
+                         </li>` 
+        } else if(menu.parent === 'true') {
+            let childHtml = ''
+            menu.child.forEach(function(childrenEntry){
+                childHtml+= `<li><a href="${childrenEntry.link_child}">${childrenEntry.name_child}</a></li>`
+            })
+            xhtmlMenu +=`<li class="mega-menu-item">
+                            <a href="#" class="mega-menu-link">${menu.name}</a>
+                            <ul class="mega-submenu">
+                                ${childHtml}
+                            </ul>
+                        </li>`
+        }
+    });
+
+    return xhtmlMenu;
+}
+
+%>

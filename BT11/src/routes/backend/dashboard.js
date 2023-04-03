@@ -1,10 +1,11 @@
+
 const express = require('express')
 
 const router = express.Router()
-const layout = __dirname + '/views/backend';
-
-router.get('/' , (req , res , next) => {
-    res.render('backend/page/home' , {title : 'backend/index.ejs'})
-}) 
+const DashBoardController = require(`${__path_controllers}/dashboard_controller`)
+ 
+router
+    .route('/')
+    .get(DashBoardController.getList)  
 
 module.exports = router;

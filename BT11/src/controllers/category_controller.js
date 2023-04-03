@@ -1,7 +1,7 @@
 const routerName = 'category';
 const renderName = `backend/page/${routerName}/`;
 
-const CategoryService = require(`${__path_services}category_service`);
+const CategoryService = require(`${__path_services}/category_service`);
 
 
 module.exports = {
@@ -9,9 +9,11 @@ module.exports = {
         // Promise.all([])
         let { data, currentStatus, keyword, pagination, sortType, sortField }  = await CategoryService.getAll(req)
         let statusFilter                                  = await CategoryService.countAll(req)
+        let pageTitle = 'Blog Category'
  
         res.render(`${renderName}list` , {
             items :        data,
+            pageTitle,
             currentStatus,
             keyword,
             pagination,
@@ -26,7 +28,7 @@ module.exports = {
 
         res.render(`${renderName}form` , {
             pageTitle,
-            item :  data
+            items :  data
         });
     },
 
@@ -54,15 +56,6 @@ module.exports = {
 
     changeMultipleAction: async (req, res, next) => {
         await CategoryService.changeMultipleAction(req, res)
-    },
-
-    getUpload: async (req, res, next) => {
-        // await CategoryService.getUpload(req, res)
-        res.render(`${renderName}upload`);
-    },
-
-    saveUpload: async (req, res, next) => {
-        await CategoryService.saveUpload(req, res)
     },
 
 }

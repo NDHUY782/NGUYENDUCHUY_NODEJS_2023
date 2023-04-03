@@ -25,7 +25,7 @@ module.exports = {
 
         let pagination = {
             totalItem       : 1,
-            totalItemPerPage: 3,
+            totalItemPerPage: 5,
             currentPage     : parseInt(paramsHelpers.getParam(req.query, 'page', 1)),
             pageRange       : 3
         }
@@ -60,7 +60,7 @@ module.exports = {
 
     countAll: async (req) => { // Filter 
         let currentStatus = req.params.status;
-        let statusFilter = utilsHelpers.createFilterStatusCategory(currentStatus)
+        let statusFilter = utilsHelpers.createFilterStatus(currentStatus, CategoryModel)
         return statusFilter
     },
 
@@ -127,7 +127,8 @@ module.exports = {
             CategoryModel.updateOne({_id:item.id}, {
                 ordering: item.ordering,
                 status: item.status,
-                name: item.name
+                name: item.name,
+                content: item.content
             }, (err,result) => {
                 req.flash('success', notify.EDIT_SUCCESS, false) 
                 res.redirect('/admin/category/')
@@ -138,45 +139,6 @@ module.exports = {
                 res.redirect('/admin/category/')
             })
         }
-
-        // const errors = validationResult(req);
-        // if (!errors.isEmpty()) {
-        //     let errorArr = {}
-        //     let data     = {}
-        //     errors.array().forEach((error) => {
-        //       errorArr[`${error.param}`] = error.msg;
-        //     });
-
-        //     if(item.id === ''){ /// add
-        //         pageTitle = 'Add - Form'
-        //     }else { /// edit
-        //         data = await CategoryModel.findById(item.id)
-        //         pageTitle = 'Edit - Form'
-        //     }  
-        //     res.render(`${renderName}form` , {
-        //         pageTitle,
-        //         item :  data,
-        //         errorArr
-        //     });
-        //   return;
-        // } else {       
-        //     if(typeof item !== 'undefined' && item.id !== ""){ //edit
-
-        //         CategoryModel.updateOne({_id:item.id}, {
-        //             ordering: item.ordering,
-        //             status: item.status,
-        //             name: item.name
-        //         }, (err,result) => {
-        //             req.flash('success', notify.EDIT_SUCCESS, false) 
-        //             res.redirect('/admin/category/')
-        //         });
-        //     }else{ // add
-        //         await new CategoryModel(item).save().then(() => { 
-        //             req.flash('success', notify.ADD_SUCCESS, false) 
-        //             res.redirect('/admin/category/')
-        //         })
-        //     }
-        // }
     },
 
     changeMultipleAction: async (req, res) => { // (Delete multiple, Change status multiple)
@@ -201,20 +163,5 @@ module.exports = {
         
         res.redirect('/admin/category/')
     },
-
-    // getUpload: async (req, res) => {
-    //     res.render('admin/category/upload');
-    //  },
-
-    saveUpload: async (req, res) => {
-        uploadItem(req, res, (err) => {
-            let error = ''
-            if (err) {
-                error = err
-            }
-        req.flash('success', '123', false)
-        res.render(`${renderName}upload`);
-        })   
-    }
 
 }

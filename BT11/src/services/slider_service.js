@@ -1,16 +1,16 @@
-const ArticleModel = require(`${__path_models}article_model`)
+const SliderModel = require(`${__path_models}slider_model`)
 const CategoryModel = require(`${__path_models}category_model`)
 const utilsHelpers = require(`${__path_helpers}utils`)
 const paramsHelpers = require(`${__path_helpers}params`)
 const notify = require(`${__path_configs}notify`)
 const fileHelpers = require(`${__path_helpers}file`)
 
-const uploadAvatar = fileHelpers.upload('avatar', `${__path_public}uploads/items/`)
+const uploadAvatar = fileHelpers.upload('avatar', `${__path_public}uploads/sliders/`)
 
 var { validationResult } = require('express-validator')
 const util = require('util')
 
-const routerName = 'article';
+const routerName = 'slider';
 const renderName = `backend/page/${routerName}/`;
 
 
@@ -42,10 +42,10 @@ module.exports = {
         if (currentStatus !== 'all') condition.status = currentStatus
         if (keyword !== '') condition.name = { $regex: keyword, $options: 'i' }
 
-        let count = await ArticleModel.count(condition)
+        let count = await SliderModel.count(condition)
         pagination.totalItem = count
 
-        let data = await ArticleModel
+        let data = await SliderModel
             .find(condition)
             .select('name avatar status ordering id_category created modified')
             .sort(sort)
@@ -68,7 +68,7 @@ module.exports = {
 
     countAll: async (req) => { // Filter 
         let currentStatus = req.params.status;
-        let statusFilter = utilsHelpers.createFilterStatus(currentStatus, ArticleModel)
+        let statusFilter = utilsHelpers.createFilterStatus(currentStatus, SliderModel)
         return statusFilter
     },
 
@@ -85,7 +85,7 @@ module.exports = {
             }
         }
 
-        ArticleModel.updateOne({ _id: id }, data, (err, result) => {
+        SliderModel.updateOne({ _id: id }, data, (err, result) => {
         });
 
         return {
@@ -109,7 +109,7 @@ module.exports = {
             }
         }
 
-        ArticleModel.updateOne({ _id: id }, data, (err, result) => {
+        SliderModel.updateOne({ _id: id }, data, (err, result) => {
         });
         return {
             success: true,
@@ -131,7 +131,7 @@ module.exports = {
             }
         }
 
-        ArticleModel.updateOne({ _id: id }, data, (err, result) => {
+        SliderModel.updateOne({ _id: id }, data, (err, result) => {
         });
         return {
             success: true,
@@ -144,13 +144,13 @@ module.exports = {
     deleteItem: async (req, res) => { // Delete one items 
         let id            = paramsHelpers.getParam(req.params, 'id', '')
 
-        await ArticleModel.findById(id).then((item) => {
-            fileHelpers.remove('src/public/uploads/items/', item.avatar)
+        await SliderModel.findById(id).then((item) => {
+            fileHelpers.remove('src/public/uploads/sliders/', item.avatar)
         })
 
-        ArticleModel.deleteOne({_id:id}, (err,result) => {
+        SliderModel.deleteOne({_id:id}, (err,result) => {
             req.flash('warning', notify.DELETE_SUCCESS, false)           
-            res.redirect('/admin/article/')
+            res.redirect('/admin/slider/')
         });
     },
 
@@ -163,7 +163,7 @@ module.exports = {
         if (id === '') { /// add
             pageTitle = 'Add - Form'
         } else { /// edit
-            data = await ArticleModel.findById(id)
+            data = await SliderModel.findById(id)
             pageTitle = 'Edit - Form'
         }
         return {
@@ -177,13 +177,13 @@ module.exports = {
         req.session.sortField      = paramsHelpers.getParam(req.params, 'sort_field', 'ordering')
         req.session.sortType       = paramsHelpers.getParam(req.params, 'sort_type', 'asc')
         
-        res.redirect('/admin/article/')
+        res.redirect('/admin/slider/')
     },
 
     getFilterCategory: async (req, res) => { //  
         req.session.idCategory      = paramsHelpers.getParam(req.params, 'id_category', '')
         
-        res.redirect('/admin/article/')
+        res.redirect('/admin/slider/')
     },
 
     saveItem: async (req, res) => { // (NewData add, edit item)
@@ -203,7 +203,7 @@ module.exports = {
                 if (item.id === '') { /// add
                     pageTitle = 'Add - Form'
                 } else { /// edit
-                    data = await ArticleModel.findById(item.id)
+                    data = await SliderModel.findById(item.id)
                     pageTitle = 'Edit - Form'
                 }
                 
@@ -220,10 +220,10 @@ module.exports = {
                         item.avatar = item.image_old;
                     } else {
                         item.avatar = req.file.filename;
-                        fileHelpers.remove('src/public/uploads/items/', item.image_old)
+                        fileHelpers.remove('src/public/uploads/sliders/', item.image_old)
                     }
 
-                    ArticleModel.updateOne({ _id: item.id }, {
+                    SliderModel.updateOne({ _id: item.id }, {
                         ordering: item.ordering,
                         status: item.status,
                         name: item.name,
@@ -237,7 +237,7 @@ module.exports = {
                         }
                     }, (err, result) => {
                         req.flash('success', notify.EDIT_SUCCESS, false)
-                        res.redirect('/admin/article/')
+                        res.redirect('/admin/slider/')
                     });
                 } 
                 else { // add
@@ -252,9 +252,9 @@ module.exports = {
                         user_name: "admin",
                         time: Date.now()
                     }
-                    await new ArticleModel(item).save().then(() => {
+                    await new SliderModel(item).save().then(() => {
                         req.flash('success', notify.ADD_SUCCESS, false)
-                        res.redirect('/admin/article/')
+                        res.redirect('/admin/slider/')
                     })
                 }
             }
@@ -267,19 +267,19 @@ module.exports = {
         if (action === 'delete') {
             if(Array.isArray(id)){
                 for (let index = 0; index < id.length; index++) {
-                    await ArticleModel.findById(id[index]).then((item) => {
-                        fileHelpers.remove('src/public/uploads/items/', item.avatar)
+                    await SliderModel.findById(id[index]).then((item) => {
+                        fileHelpers.remove('src/public/uploads/sliders/', item.avatar)
                     })
                 }
             } else {
-                await ArticleModel.findById(id).then((item) => {
-                    fileHelpers.remove('src/public/uploads/items/', item.avatar)
+                await SliderModel.findById(id).then((item) => {
+                    fileHelpers.remove('src/public/uploads/sliders/', item.avatar)
                 })
             }
 
-            ArticleModel.deleteMany({ _id: { $in: req.body.cid } }, (err, result) => {
+            SliderModel.deleteMany({ _id: { $in: req.body.cid } }, (err, result) => {
                 req.flash('success', util.format(notify.DELETE_MULTI_SUCCESS, result.deletedCount), false)
-                res.redirect('/admin/article/')
+                res.redirect('/admin/slider/')
             })
         } else {
             let data = {
@@ -291,9 +291,9 @@ module.exports = {
                 }
             }
 
-            ArticleModel.updateMany({ _id: { $in: req.body.cid } }, data, (err, result) => {
+            SliderModel.updateMany({ _id: { $in: req.body.cid } }, data, (err, result) => {
                 req.flash('success', util.format(notify.CHANGE_STATUS_MULTI_SUCCESS, result.modifiedCount), false)
-                res.redirect('/admin/article/')
+                res.redirect('/admin/slider/')
             })
         }
 

@@ -1,7 +1,7 @@
 const express = require('express')
 
 const router = express.Router()
-const categoryController = require(`${__path_controllers}category_controller`)
+const categoryController = require(`${__path_controllers}/category_controller`)
 const { validate } = require(`${__path_validator}item`);
 
 
@@ -34,9 +34,6 @@ router
     .route('/sort/:sort_field/:sort_type')
     .get(categoryController.getSort)    
 
-router
-    .route('/upload')
-    .get(categoryController.getUpload)
-    .post(categoryController.saveUpload)
+
 
 module.exports = router;

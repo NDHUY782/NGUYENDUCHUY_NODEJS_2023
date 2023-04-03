@@ -1,7 +1,7 @@
 const routerName = 'article';
 const renderName = `backend/page/${routerName}/`;
 
-const ArticleService = require(`${__path_services}article_service`);
+const ArticleService = require(`${__path_services}/article_service`);
 
 
 module.exports = {
@@ -9,9 +9,11 @@ module.exports = {
         // Promise.all([])
         let { data, currentStatus, keyword, pagination, categoryItems, categoryItemsFilter, sortField, sortType, idCategory}  = await ArticleService.getAll(req)
         let statusFilter                                  = await ArticleService.countAll(req)
+        let pageTitle = 'Blog Article'
  
         res.render(`${renderName}list` , {
             items :        data,
+            pageTitle,
             currentStatus,
             keyword,
             pagination,
@@ -26,10 +28,9 @@ module.exports = {
 
     getForm : async (req , res , next) => {
         let { pageTitle, data, categoryItems } = await (ArticleService.getForm(req))
-
         res.render(`${renderName}form` , {
             pageTitle,
-            item :  data,
+            items :  data,
             categoryItems
         });
     },
@@ -75,5 +76,9 @@ module.exports = {
 
     getFilterCategory: async (req , res , next) => {
         await ArticleService.getFilterCategory(req, res)
+    },
+
+    getRss: async (req , res , next) => {
+        res.send('Hello')
     },
 }

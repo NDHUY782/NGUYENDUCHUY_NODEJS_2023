@@ -28,8 +28,8 @@ let uploadFile = (field, folderDes = `${__path_public}uploads/items/`, fileNameL
                 cb('Phần mở rộng của tập tin ko phù hợp');
             }
         }
-     }).array(field, 5)
-    //  .single(field);
+     }).single(field)
+    //  .single(field);.array(field, 5)
      return upload;
 }
 
