@@ -19,4 +19,6 @@ router.use('/slider',require('./slider'))
 
 router.use('/authen',require('./authen'))
 
+router.use('/sendmail',require('./send_mail'))
+
 module.exports = router

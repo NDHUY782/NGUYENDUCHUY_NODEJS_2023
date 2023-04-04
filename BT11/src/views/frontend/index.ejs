@@ -43,9 +43,11 @@
 						<nav class="primary-menu not-dark col-lg-auto order-lg-1">
 
 							<ul class="menu-container" >
-								<li class="menu-item"><a class="menu-link" href="http://localhost:3000/"><div>Home</div></a></li>
-								<li class="menu-item"><a class="menu-link" id="menu"  href="demo-writer-article-single.html"><div>Blog</div></a></li>
-								<li class="menu-item"><a class="menu-link" href="demo-writer-about-me.html"><div>About Me</div></a></li>
+								<!-- <%- include ../../middleware/get_menu.js -%> -->
+								<% listMenu.forEach((item) => { %>
+								<li class="menu-item"><a class="menu-link" href="http://localhost:3000/"><div><%= item.name %></div></a></li>
+							
+								<% }) %>
 							</ul>
 
 						</nav>
@@ -53,10 +55,11 @@
 						<nav class="primary-menu not-dark col-lg-auto order-lg-3">
 
 							<ul class="menu-container justify-content-lg-end">
-								<li class="menu-item"><a class="menu-link" href="demo-writer-testimonials.html"><div>Testimonials</div></a></li>
-								<li class="menu-item"><a class="menu-link" href="/contact"><div>Contact</div></a></li>
-								<li class="menu-item"><a class="menu-link" href="demo-writer-login.html"><div>Login</div></a></li>
-							</ul>
+								<% listMenu.forEach((item) => { %>
+									<li class="menu-item"><a class="menu-link" href="demo-writer-testimonials.html"><div><%= item.name %></div></a></li>
+								
+									<% }) %>
+								
 
 						</nav><!-- #primary-menu end -->
 
