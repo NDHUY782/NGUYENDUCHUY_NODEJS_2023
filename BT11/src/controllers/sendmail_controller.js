@@ -26,10 +26,10 @@ module.exports = {
             // send mail with defined transport object
             let info = await transporter.sendMail({
                 from: 'huynguyen07080112@gmail.com', // sender address
-                to: "<huynguyen07080401@gmail.com>", // list of receivers
+                to: "<quochuy22122002@gmail.com>", // list of receivers
                 subject: "Hello ✔", // Subject line
-                text: "Hello world?", // plain text body
-                html: "<b>Hello world?</b>", // html body
+                text: "Xin Cảm Ơn - Chúc Bạn Có 1 Ngày Tốt Lành", // plain text body
+                html: "<b>Xin Cảm Ơn - Chúc Bạn Có 1 Ngày Tốt Lành</b>", // html body
             });
 
             console.log("Message sent: %s", info.messageId);

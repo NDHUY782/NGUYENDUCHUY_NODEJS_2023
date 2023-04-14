@@ -1,15 +1,14 @@
-const routerName = 'slider';
+const routerName = 'product';
 const renderName = `backend/page/${routerName}/`;
 
-const SliderService = require(`${__path_services}/slider_service`);
+const ProductService = require(`${__path_services}/product_service`);
 
 
 module.exports = {
     getlist : async (req , res , next) => {
-        // Promise.all([])
-        let { data, currentStatus, keyword, pagination, categoryItems, categoryItemsFilter, sortField, sortType, idCategory}  = await SliderService.getAll(req)
-        let statusFilter                                  = await SliderService.countAll(req)
-        let pageTitle = 'Blog Slider'
+        let { data, currentStatus, keyword, pagination, categoryItems, categoryItemsFilter, sortField, sortType, idCategory}  = await ProductService.getAll(req)
+        let statusFilter                                  = await ProductService.countAll(req)
+        let pageTitle = 'Blog Product'
  
         res.render(`${renderName}list` , {
             items :        data,
@@ -27,7 +26,7 @@ module.exports = {
     },
 
     getForm : async (req , res , next) => {
-        let { pageTitle, data, categoryItems } = await (SliderService.getForm(req))
+        let { pageTitle, data, categoryItems } = await (ProductService.getForm(req))
         res.render(`${renderName}form` , {
             pageTitle,
             items :  data,
@@ -36,30 +35,30 @@ module.exports = {
     },
 
     getStatus: async (req , res , next) => {
-        let data = await SliderService.changeStatus(req, res)
+        let data = await ProductService.changeStatus(req, res)
         res.send(data) 
     },
 
     getOrdering: async (req, res, next) => {
-        let data = await SliderService.changeOrdering(req, res)
+        let data = await ProductService.changeOrdering(req, res)
         res.send(data)
     },
 
     getCategory: async (req, res, next) => {
-        let data = await SliderService.changeCategory(req, res)
+        let data = await ProductService.changeCategory(req, res)
         res.send(data)
     },
 
     deleteItem: async (req , res , next) => {
-        await SliderService.deleteItem(req, res)
+        await ProductService.deleteItem(req, res)
     },
 
     saveItem: async (req, res, next) => {
-        await SliderService.saveItem(req, res)
+        await ProductService.saveItem(req, res)
     },
 
     changeMultipleAction: async (req, res, next) => {
-        await SliderService.changeMultipleAction(req, res)
+        await ProductService.changeMultipleAction(req, res)
     },
 
     getUpload: async (req, res, next) => {
@@ -67,15 +66,15 @@ module.exports = {
     },
 
     saveUpload: async (req, res, next) => {
-        await SliderService.saveUpload(req, res)
+        await ProductService.saveUpload(req, res)
     },
 
     getSort: async (req , res , next) => {
-        await SliderService.getSort(req, res)
+        await ProductService.getSort(req, res)
     }, 
 
     getFilterCategory: async (req , res , next) => {
-        await SliderService.getFilterCategory(req, res)
+        await ProductService.getFilterCategory(req, res)
     },
 
     getRss: async (req , res , next) => {

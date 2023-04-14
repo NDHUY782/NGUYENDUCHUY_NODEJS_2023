@@ -9,7 +9,7 @@ module.exports = {
     getList : async (req , res , next) => {
         // Promise.all([])
         let { data, currentStatus, keyword, pagination, sortType, sortField }  = await MenuService.getAll(req)
-        let statusFilter                                  = await MenuService.countAll(req)
+        let statusFilter                                                       = await MenuService.countAll(req)
         let pageTitle = 'Menu'
  
         res.render(`${renderName}list` , {
@@ -25,9 +25,10 @@ module.exports = {
     },
 
     getForm: async (req , res , next) => {
-        let { data, pageTitle}  = await MenuService.getForm(req, res)
+        let { data, pageTitle, categoryItems}  = await MenuService.getForm(req, res)
         res.render(`${renderName}form` , {
             items : data,
+            categoryItems,
             pageTitle
         })
     },

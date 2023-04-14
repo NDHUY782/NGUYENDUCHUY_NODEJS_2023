@@ -1,21 +1,26 @@
 
 <% 
-	const collection = 'menu'
-	const linkPrefix = systemConfig.prefixAdmin + `/${collection}/`
+	const collection   = 'product'
+	const linkPrefix   = systemConfig.prefixAdmin + `/${collection}/`
+	const folderUpload = 'uploads/products/'
 %>
 
 <% include ./../../helper/status.ejs %>
+<% include ./../../helper/source_by.ejs %>
 <% include ./../../helper/ordering.ejs %>
 <% include ./../../helper/filter-status.ejs %>
 <% include ./../../helper/pagination.ejs %>
 <% include ./../../helper/highlight-char.ejs %>
+<% include ./../../helper/image.ejs %>
+<% include ./../../helper/select-box-ajax.ejs %>
+<% include ./../../helper/select-box-default.ejs %>
 <% include ./../../helper/sort-list.ejs %>
 
-<h3><%- locals.flash %></h3>
 
+<h3><%- locals.flash %></h3>
 <div class="row mb-2">
     <div class="col-sm-6">
-        <h1 class="m-0">Danh Mục <%= pageTitle%></h1>
+        <h1 class="m-0">Danh mục <%= pageTitle%></h1>
     </div>
 </div>
 <div class="card card-info card-outline">
@@ -30,6 +35,11 @@
 			<div class="mb-1">
 				<div class="btn-search">
 					<%- filterStatusHelper(statusFilter, keyword, linkPrefix) %>
+				</div>
+			</div>
+			<div class="mb-1">
+				<div class="btn-search">
+					<%- selectBoxDefaultHelper('filter_category', categoryItemsFilter, idCategory) %>
 				</div>
 			</div>
 			
@@ -75,11 +85,8 @@
 		</div>
 		<input type="hidden" name="action" id="inputHiddenAll" value="" >
 	</div>
-	<div class="card-body">
-		<!-- Control -->
-		<!-- <form action="" method="post" class="table-responsive" id="zt-form"> -->
-			<!-- List Content -->		
-			<table class="table table-bordered table-hover text-nowrap btn-table mb-0">
+	<div class="card-body">	
+			<table class="table table-bordered table-hover text-nowrap btn-table mb-0 my_table">
 				<thead>
 					<% if (!items.length) { %>
 						<tr><div style="text-align: center;"> Không tìm thấy dữ liệu </div></tr>
@@ -92,11 +99,11 @@
 								</div>
 							</th>
 							<th class="text-center">#</a></th>
-							<%- sortListHelper(linkPrefix, 'Menu', 'menu', sortField, sortType) %>
-							<th class="text-center">Link</th>
-							<th class="text-center">Parent</th>
-							<!-- sortListHelper(linkPrefix, 'Menu_Child', 'menu_child', sortField, sortType) -->
+							<%- sortListHelper(linkPrefix, 'Name', 'name', sortField, sortType, "name") %>
+							<th class="text-center">Avatar</a></th>
 							<%- sortListHelper(linkPrefix, 'Status', 'status', sortField, sortType) %>
+							<%- sortListHelper(linkPrefix, 'Ordering', 'ordering', sortField, sortType) %>
+							<th class="text-center">Category</a></th>
 							<th class="text-center">Action</th>
 						</tr>
 					<% } %>
@@ -113,26 +120,18 @@
 							</td>
 							<td class="text-center"><%= index+1 %></td>
 							<td class="text-center"><%- highlightHelper(value.name, keyword) %></td>
-							<% if (value.link !== "") { %>
-								<td class="text-center">
-									<span class="badge badge-success"><%= value.link %></span>
-								</td>
-							<% } else { %>
-								<td class="text-center">
-									<span class="badge badge-danger">empty</span>
-								</td>
-							<% } %>
-
-							<td class="text-center"><%= value.parent %></td>
-
-							<!-- <td class="text-center position-relative" >
-								selectBoxMenuChildHelper('child', value.child, "") 
-							</td> -->
-
+							<td class="text-center">
+								<%- imageHelper(folderUpload, value.avatar) %>
+							</td>
 							<td id="changeStatus-<%= value.id%>" class="text-center position-relative">
 								<%- statusHelper(value.status, value.id, linkPrefix) %>
 							</td>
-
+							<td class="text-center position-relative" >
+								<%- orderingHelper(value.id, value.ordering, linkPrefix) %>
+							</td>
+							<td class="text-center position-relative" >
+								<%- selectBoxAjaxHelper('category', categoryItems, value.id_category, value.id, linkPrefix) %>
+							</td>
 							<td class="text-center">
 								<a href="<%= linkPrefix %>form/<%= value.id%>" class="rounded-circle btn btn-sm btn-info " title="Edit">
 									<i class="fas fa-pencil-alt"></i>
@@ -146,12 +145,9 @@
 						<% })  %>
 				</tbody>
 			</table>
-		<!-- </form> -->
 	</div>
 	<div class="col-lg-12">
-		<!--Pagination-->
 		<%- paginationHelper(pagination, currentStatus, keyword, linkPrefix) %>
-	    <!--Pagination-->
 	</div>
 </div>
 <form>

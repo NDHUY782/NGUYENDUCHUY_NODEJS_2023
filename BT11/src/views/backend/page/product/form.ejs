@@ -2,13 +2,15 @@
 <% include ./../../helper/image.ejs %>
 
 <% 
-	const collection = 'article'
+	const collection = 'product'
 	const linkPrefix = systemConfig.prefixAdmin + `/${collection}/`
     const folderUpload = 'uploads/items/'
 %>
 
+
+
     <div class="card card-info card-outline">
-        <form action= <%= linkPrefix + 'form'%> method="POST" id ="form-category" enctype="multipart/form-data" name="form-upload">
+        <form action= <%= linkPrefix + 'form'%> method="POST" id ="form-category" enctype="multipart/form-data" >
             <div class="card-body">
                 <h1>
                     <%= pageTitle%>
@@ -50,22 +52,18 @@
                 <div class="form-group row">
                     <label for="avatar" class="col-sm-2 col-form-label text-sm-right required">Avatar</label>
                     <div class="col-xs-12 col-sm-8">
-                        <input type="file" id="avatar" name="avatar" class="form-control form-control-sm" value="abc" style="padding-bottom: 2rem" multiple>
+                        <input type="file" id="avatar" name="avatar" class="form-control form-control-sm" value="abc" style="padding-bottom: 2rem">
+                        <span class="form-message" style = "color: red;"></span>
                     </div>
-                    <span class="form-message" style = "color: red;"></span>
                     <div class="help-block with-errors text-red m-2" style="padding-left: 17%;">
                         <%= (typeof errorArr !== "undefined")?errorArr.avatar:"" %>
                     </div>
-                </div>
-                <div class="dropzone">
                 </div>
                 <% if(items.id !== undefined && items.id !== ''){ %>
                     <div class="form-group row">
                         <label></label>
                         <div class="col-xs-12 col-sm-8">
-                            <% items.avatar.forEach((avatar) => { %>
-                                <%- imageHelper(folderUpload, avatar, 'img_Form') %>
-                            <% }) %>
+                            <%- imageHelper(folderUpload, items.avatar, 'img_Form') %>
                         </div>
                     </div>
                 <%}%>
@@ -105,7 +103,7 @@
             Validator.minMaxInt('#ordering', 1, 100, 'Ordering phải số nguyên và có giá trị từ 1 đến 100'),
             Validator.isSelected('#status', 'Vui lòng chọn trường status'),
             Validator.isSelected('#category', 'Vui lòng chọn trường category'),
-            // Validator.isRequired('#avatar'),
+            // Validator.emptyFile('#avatar'),
         ],
     });
 </script>

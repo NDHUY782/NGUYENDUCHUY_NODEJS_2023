@@ -1,5 +1,5 @@
 <% 
-    const collection= "category" 
+    const collection= "category_product" 
     const linkPrefix= systemConfig.prefixAdmin + `/${collection}/`   
 %>
     <div class="card card-info card-outline">
@@ -55,7 +55,7 @@
                 <div class="col-12 col-sm-8 offset-sm-2">
                     <button type="submit" class="btn btn-sm btn-success mr-1">
                         Submit</button>
-                    <a href="/admin/category" class="btn btn-sm btn-danger mr-1">
+                    <a href="/admin/category_product" class="btn btn-sm btn-danger mr-1">
                         Cancel</a>
                 </div>
             </div>
@@ -74,7 +74,7 @@
             errorSelector: '.form-message',
             rules: [
                 Validator.isRequired('#name'),
-                Validator.minLength('#name', 6, 'Name phải có tối thiểu 6 ký tự'),
+                Validator.minLength('#name', 2, 'Name phải có tối thiểu 2 ký tự'),
                 Validator.isRequired('#ordering'),
                 Validator.minMaxInt('#ordering', 1, 100, 'Ordering phải số nguyên và có giá trị từ 1 đến 100'),
                 Validator.isSelected('#status', 'Vui lòng chọn trường status'),

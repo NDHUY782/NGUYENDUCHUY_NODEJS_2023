@@ -145,7 +145,7 @@ module.exports = {
         let id            = paramsHelpers.getParam(req.params, 'id', '')
 
         await SliderModel.findById(id).then((item) => {
-            fileHelpers.remove('src/public/uploads/sliders/', item.avatar)
+            fileHelpers.remove('src/public/uploads/items/', item.avatar)
         })
 
         SliderModel.deleteOne({_id:id}, (err,result) => {

@@ -1,17 +1,16 @@
-const ArticleModel = require(`${__path_models}article_model`)
-const CategoryModel = require(`${__path_models}category_model`)
+const ProductModel = require(`${__path_models}product_model`)
+const CategoryProductModel = require(`${__path_models}category_product_model`)
 const utilsHelpers = require(`${__path_helpers}utils`)
 const paramsHelpers = require(`${__path_helpers}params`)
-const SlugHelpers   = require(`${__path_helpers}slug`)
 const notify = require(`${__path_configs}notify`)
 const fileHelpers = require(`${__path_helpers}file`)
 
-const uploadAvatar = fileHelpers.upload('avatar', `${__path_public}uploads/items/`)
+const uploadAvatar = fileHelpers.upload('avatar', `${__path_public}uploads/products/`)
 
 var { validationResult } = require('express-validator')
 const util = require('util')
 
-const routerName = 'article';
+const routerName = 'product';
 const renderName = `backend/page/${routerName}/`;
 
 
@@ -22,7 +21,7 @@ module.exports = {
         let keyword = paramsHelpers.getParam(req.query, 'keyword', '')
         let currentStatus = paramsHelpers.getParam(req.params, 'status', 'all')
 
-        let categoryItems = await CategoryModel.find({status: 'active'}, { id: 1, name: 1 })
+        let categoryItems = await CategoryProductModel.find({status: 'active'}, { id: 1, name: 1 })
         let categoryItemsFilter = [...categoryItems];
         let arrIdCategory = []
         categoryItems.forEach(value => {
@@ -48,10 +47,10 @@ module.exports = {
         if (currentStatus !== 'all') condition.status = currentStatus
         if (keyword !== '') condition.name = { $regex: keyword, $options: 'i' }
 
-        let count = await ArticleModel.count(condition)
+        let count = await ProductModel.count(condition)
         pagination.totalItem = count
 
-        let data = await ArticleModel
+        let data = await ProductModel
             .find(condition)
             .select('name avatar status ordering id_category created modified')
             .sort(sort)
@@ -74,7 +73,7 @@ module.exports = {
 
     countAll: async (req) => { // Filter 
         let currentStatus = req.params.status;
-        let statusFilter = utilsHelpers.createFilterStatus(currentStatus, ArticleModel)
+        let statusFilter = utilsHelpers.createFilterStatus(currentStatus, ProductModel)
         return statusFilter
     },
 
@@ -91,7 +90,7 @@ module.exports = {
             }
         }
 
-        ArticleModel.updateOne({ _id: id }, data, (err, result) => {
+        ProductModel.updateOne({ _id: id }, data, (err, result) => {
         });
 
         return {
@@ -115,7 +114,7 @@ module.exports = {
             }
         }
 
-        ArticleModel.updateOne({ _id: id }, data, (err, result) => {
+        ProductModel.updateOne({ _id: id }, data, (err, result) => {
         });
         return {
             success: true,
@@ -137,7 +136,7 @@ module.exports = {
             }
         }
 
-        ArticleModel.updateOne({ _id: id }, data, (err, result) => {
+        ProductModel.updateOne({ _id: id }, data, (err, result) => {
         });
         return {
             success: true,
@@ -150,26 +149,26 @@ module.exports = {
     deleteItem: async (req, res) => { // Delete one items 
         let id            = paramsHelpers.getParam(req.params, 'id', '')
 
-        await ArticleModel.findById(id).then((item) => {
-            fileHelpers.remove('src/public/uploads/items/', item.avatar)
+        await ProductModel.findById(id).then((item) => {
+            fileHelpers.remove('src/public/uploads/products/', item.avatar)
         })
 
-        ArticleModel.deleteOne({_id:id}, (err,result) => {
+        ProductModel.deleteOne({_id:id}, (err,result) => {
             req.flash('warning', notify.DELETE_SUCCESS, false)           
-            res.redirect('/admin/article/')
+            res.redirect('/admin/product/')
         });
     },
 
     getForm: async (req) => {  // (GetData for FORM, edit, add)
         let id = paramsHelpers.getParam(req.params, 'id', '')
         let data = {}
-        let categoryItems = await CategoryModel.find({status: 'active'}, { id: 1, name: 1 })
+        let categoryItems = await CategoryProductModel.find({status: 'active'}, { id: 1, name: 1 })
         categoryItems.unshift({ id: 'novalue', name: 'Choose Category' })
 
         if (id === '') { /// add
             pageTitle = 'Add - Form'
         } else { /// edit
-            data = await ArticleModel.findById(id)
+            data = await ProductModel.findById(id)
             pageTitle = 'Edit - Form'
         }
         return {
@@ -183,28 +182,24 @@ module.exports = {
         req.session.sortField      = paramsHelpers.getParam(req.params, 'sort_field', 'ordering')
         req.session.sortType       = paramsHelpers.getParam(req.params, 'sort_type', 'asc')
         
-        res.redirect('/admin/article/')
+        res.redirect('/admin/product/')
     },
 
     getFilterCategory: async (req, res) => { //  
         req.session.idCategory      = paramsHelpers.getParam(req.params, 'id_category', '')
         
-        res.redirect('/admin/article/')
+        res.redirect('/admin/product/')
     },
 
     saveItem: async (req, res) => { // (NewData add, edit item)
         uploadAvatar(req, res, async (err) => {
             req.body = JSON.parse(JSON.stringify(req.body))
             let item = Object.assign(req.body)
-
-            let slug = SlugHelpers.slug(item.name)
-            item.slug = slug
-  
             if (err) {
                 let errorArr = {}
                 let data = {}
 
-                let categoryItems = await CategoryModel.find({status: 'active'}, { id: 1, name: 1 })
+                let categoryItems = await CategoryProductModel.find({status: 'active'}, { id: 1, name: 1 })
                 categoryItems.unshift({ id: 'novalue', name: 'Choose Category' })
 
                 if(err.code === 'LIMIT_FILE_SIZE') err = 'Kích thước file ko phù hợp'
@@ -213,7 +208,7 @@ module.exports = {
                 if (item.id === '') { /// add
                     pageTitle = 'Add - Form'
                 } else { /// edit
-                    data = await ArticleModel.findById(item.id)
+                    data = await ProductModel.findById(item.id)
                     pageTitle = 'Edit - Form'
                 }
                 
@@ -230,16 +225,14 @@ module.exports = {
                         item.avatar = item.image_old;
                     } else {
                         item.avatar = req.file.filename;
-                        fileHelpers.remove('src/public/uploads/items/', item.image_old)
+                        fileHelpers.remove('src/public/uploads/products/', item.image_old)
                     }
 
-                    ArticleModel.updateOne({ _id: item.id }, {
+                    ProductModel.updateOne({ _id: item.id }, {
                         ordering: item.ordering,
                         status: item.status,
                         name: item.name,
-                        slug: item.slug,
                         content: item.content,
-                        short_description: item.short_description,
                         id_category: item.category,
                         avatar: item.avatar,
                         modified: {
@@ -249,7 +242,7 @@ module.exports = {
                         }
                     }, (err, result) => {
                         req.flash('success', notify.EDIT_SUCCESS, false)
-                        res.redirect('/admin/article/')
+                        res.redirect('/admin/product/')
                     });
                 } 
                 else { // add
@@ -264,9 +257,9 @@ module.exports = {
                         user_name: "admin",
                         time: Date.now()
                     }
-                    await new ArticleModel(item).save().then(() => {
+                    await new ProductModel(item).save().then(() => {
                         req.flash('success', notify.ADD_SUCCESS, false)
-                        res.redirect('/admin/article/')
+                        res.redirect('/admin/product/')
                     })
                 }
             }
@@ -279,19 +272,19 @@ module.exports = {
         if (action === 'delete') {
             if(Array.isArray(id)){
                 for (let index = 0; index < id.length; index++) {
-                    await ArticleModel.findById(id[index]).then((item) => {
-                        fileHelpers.remove('src/public/uploads/items/', item.avatar)
+                    await ProductModel.findById(id[index]).then((item) => {
+                        fileHelpers.remove('src/public/uploads/products/', item.avatar)
                     })
                 }
             } else {
-                await ArticleModel.findById(id).then((item) => {
-                    fileHelpers.remove('src/public/uploads/items/', item.avatar)
+                await ProductModel.findById(id).then((item) => {
+                    fileHelpers.remove('src/public/uploads/products/', item.avatar)
                 })
             }
 
-            ArticleModel.deleteMany({ _id: { $in: req.body.cid } }, (err, result) => {
+            ProductModel.deleteMany({ _id: { $in: req.body.cid } }, (err, result) => {
                 req.flash('success', util.format(notify.DELETE_MULTI_SUCCESS, result.deletedCount), false)
-                res.redirect('/admin/article/')
+                res.redirect('/admin/product/')
             })
         } else {
             let data = {
@@ -303,9 +296,9 @@ module.exports = {
                 }
             }
 
-            ArticleModel.updateMany({ _id: { $in: req.body.cid } }, data, (err, result) => {
+            ProductModel.updateMany({ _id: { $in: req.body.cid } }, data, (err, result) => {
                 req.flash('success', util.format(notify.CHANGE_STATUS_MULTI_SUCCESS, result.modifiedCount), false)
-                res.redirect('/admin/article/')
+                res.redirect('/admin/product/')
             })
         }
 

@@ -2,6 +2,7 @@ const routerName = 'menu';
 const renderName = `backend/page/${routerName}/`;
 
 const MenuModel = require(`${__path_models}menu_model`)
+const CategoryModel = require(`${__path_models}category_model`)
 const notify = require(`${__path_configs}notify`)
 const paramsHelpers = require(`${__path_helpers}params`)
 const utilsHelpers  = require(`${__path_helpers}utils`)
@@ -87,6 +88,9 @@ module.exports = {
         let id = paramsHelpers.getParam(req.params, 'id', '')
         let data = {}
 
+        let categoryItems = await CategoryModel.find({status: 'active'}, { id: 1, name: 1, link:1 })
+        categoryItems.unshift({ link: 'novalue', name: 'Choose Link' })
+
         if (id === '') { /// add
             pageTitle = 'Add - Form'
         } else { /// edit
@@ -95,6 +99,7 @@ module.exports = {
         }
         return {
             pageTitle,
+            categoryItems,
             data
         }
     },
@@ -126,14 +131,15 @@ module.exports = {
                     await child.push(data_child)
                 }
                 data.child = child
-                data.link  = ''
+                // data.link  = ''
 
             }else {
                 data.parent = 'false'
-                data.link   = item.link
+                // data.link   = item.link
             }
             data.name   = item.menu
             data.status = item.status
+            data.link  = item.link
 
             if(data.child === undefined) data.child = []
 
@@ -170,14 +176,15 @@ module.exports = {
                     child.push(data_child)
                 }
                 data.child = child
-                data.link  = ''
+                // data.link  = ''
 
             }else {
                 data.parent = 'false'
-                data.link   = item.link
+                // data.link   = item.link
             }
             data.name   = item.menu
             data.status = item.status
+            data.link   = item.link
     
             await new MenuModel(data).save().then(() => {
                 req.flash('success', notify.ADD_SUCCESS, false)
@@ -207,5 +214,12 @@ module.exports = {
         req.session.sortType       = paramsHelpers.getParam(req.params, 'sort_type', 'asc')
         
         res.redirect('/admin/category/')
+    },
+
+    show_frontend: async () => {
+        let data = await MenuModel.find({status: "active"})
+        return {
+            data
+        }
     },
 }

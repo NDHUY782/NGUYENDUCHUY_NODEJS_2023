@@ -1,28 +1,16 @@
 const { Schema , model } = require("mongoose")
 
-const ArticleModel = new Schema({
+const CategoryProductModel = new Schema({
     name : {
         type : String,
     },
     status : {
         type : String,
     },
-    slug : {
-        type : String,
-    },
     ordering : {
         type : Number,
     },
     content : {
-        type : String,
-    },
-    short_description : {
-        type : String,
-    },
-    avatar : {
-        type : String,
-    },
-    id_category : {
         type : String,
     },
     created: {
@@ -35,7 +23,9 @@ const ArticleModel = new Schema({
         user_name: String,
         time: Date,
     }
+}, {
+    timestamps : true
 }) 
 
 
-module.exports = model('articles' , ArticleModel)
+module.exports = model('categoryproducts' , CategoryProductModel)

@@ -1,22 +1,16 @@
 const { Schema , model } = require("mongoose")
 
-const ArticleModel = new Schema({
+const ProductModel = new Schema({
     name : {
         type : String,
     },
     status : {
         type : String,
     },
-    slug : {
-        type : String,
-    },
     ordering : {
         type : Number,
     },
     content : {
-        type : String,
-    },
-    short_description : {
         type : String,
     },
     avatar : {
@@ -38,4 +32,4 @@ const ArticleModel = new Schema({
 }) 
 
 
-module.exports = model('articles' , ArticleModel)
+module.exports = model('products' , ProductModel)

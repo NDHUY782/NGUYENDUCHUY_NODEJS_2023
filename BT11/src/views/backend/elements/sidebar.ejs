@@ -9,9 +9,13 @@
           { name: 'List', icon: 'ion-document-text', link: `${systemConfig.prefixAdmin}/article/`},
           { name: 'Form', icon: 'ion-compose', link: `${systemConfig.prefixAdmin}/article/form`},
         ], name: 'Article', icon: 'ion-earth', link: `#`},
-        {parent: false, child: [], name: 'Setting', icon: 'ion-earth', link: `\admin/setting`},
-        {parent: false, child: [], name: 'Slider', icon: 'ion-earth', link: `\admin/slider`},
-        {parent: false, child: [], name: 'Menu', icon: 'ion-earth', link: `\admin/menu`},
+        {parent: true, child: [
+          { name: 'Product Category', icon: 'ion-clipboard', link: `${systemConfig.prefixAdmin}/category_product/`},
+          { name: 'Product', icon: 'fas fa-blog', link: `${systemConfig.prefixAdmin}/product/`},
+        ], name: 'Manage Product', icon: 'fas fa-list', link: `#`},
+        {parent: false, name: 'Slider', icon: 'fas fa-table', link: `${systemConfig.prefixAdmin}/slider/`},
+          {parent: false, name: 'Menu', icon: 'fas fa-chart-pie"', link: `${systemConfig.prefixAdmin}/menu/`},
+          {parent: false, name: 'Setting', icon: 'fas fa-wrench"', link: `${systemConfig.prefixAdmin}/setting/`},
         
     ];
     
