@@ -18,7 +18,6 @@ router.use('/slider',require('./slider'))
 
 
 router.use('/authen',require('./authen'))
-
 router.use('/sendmail',require('./send_mail'))
 router.use('/product',require('./product'))
 router.use('/category_product',require('./category_product'))
