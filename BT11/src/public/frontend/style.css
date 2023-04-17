@@ -120,7 +120,9 @@
 		width: 100%;
 	}
 }
-
+.header-bottom{
+	
+}
 .form-group {
 	margin-bottom: 1rem;
 }
@@ -14324,7 +14326,7 @@ body:not(.device-touch) #gotoTop {
 	}
 
 	.sticky-footer #footer {
-		position: sticky;
+		position: relative;
 		top: auto;
 		bottom: 0;
 		left: 0;

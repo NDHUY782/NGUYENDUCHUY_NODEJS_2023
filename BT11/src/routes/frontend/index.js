@@ -13,6 +13,8 @@ router.use('/contact' , require('./contact'))
 router.use('/blog' , require('./blog'))
 router.use('/blog_detail' , require('./blog_detail'))
 
+router.use('/login' , require('./login'))
+
 
 
 module.exports = router;

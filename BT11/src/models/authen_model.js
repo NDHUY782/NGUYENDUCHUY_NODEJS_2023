@@ -1,5 +1,6 @@
 const { Schema , model } = require("mongoose")
 
+
 const bcrypt = require('bcrypt')
 
 
@@ -13,10 +14,15 @@ const AuthenModel = new Schema({
         type : String,
         minLenght:3,
 
+    },
+    roles: {
+        type: String,
     }
 }, {
     timestamps : true
 }) 
+
+
 AuthenModel.pre("save" , async function(next) {
          if(!this.isModified('password')) {
             return(next)
@@ -29,7 +35,3 @@ AuthenModel.pre("save" , async function(next) {
     })
 
 module.exports = model('AuthenModel' , AuthenModel)
-
-
-// let PASS = await bcrypt.genSalt(10)
-//             .then((salt => bcrypt.hash(pass, salt)));

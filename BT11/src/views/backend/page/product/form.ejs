@@ -4,10 +4,8 @@
 <% 
 	const collection = 'product'
 	const linkPrefix = systemConfig.prefixAdmin + `/${collection}/`
-    const folderUpload = 'uploads/items/'
+    const folderUpload = 'uploads/products/'
 %>
-
-
 
     <div class="card card-info card-outline">
         <form action= <%= linkPrefix + 'form'%> method="POST" id ="form-category" enctype="multipart/form-data" >
@@ -26,6 +24,21 @@
                     <label for="ordering" class="col-sm-2 col-form-label text-sm-right required">Ordering</label>
                     <div class="col-xs-12 col-sm-8">
                         <input type="number" id="ordering" name="ordering" class="form-control form-control-sm" value="<%= items.ordering%>" placeholder="VD: 1">
+                        <span class="form-message" style = "color: red;"></span>
+                    </div>
+                </div>
+                
+                <div class="form-group row">
+                    <label for="price" class="col-sm-2 col-form-label text-sm-right required">Price</label>
+                    <div class="col-xs-12 col-sm-8">
+                        <input type="number" id="price" name="price" class="form-control form-control-sm" value="<%= items.price%>" placeholder="VD: 1">
+                        <span class="form-message" style = "color: red;"></span>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <label for="discount" class="col-sm-2 col-form-label text-sm-right required">Discount</label>
+                    <div class="col-xs-12 col-sm-8">
+                        <input type="number" id="discount" name="discount" class="form-control form-control-sm" value="<%= items.price%>" placeholder="VD: 1">
                         <span class="form-message" style = "color: red;"></span>
                     </div>
                 </div>
@@ -49,7 +62,8 @@
                         <span class="form-message" style = "color: red;"></span>
                     </div>
                 </div>
-                <div class="form-group row">
+                
+                <<div class="form-group row">
                     <label for="avatar" class="col-sm-2 col-form-label text-sm-right required">Avatar</label>
                     <div class="col-xs-12 col-sm-8">
                         <input type="file" id="avatar" name="avatar" class="form-control form-control-sm" value="abc" style="padding-bottom: 2rem">
@@ -72,6 +86,7 @@
                     <textarea name="content" rows="2" id="content"><%= items.content%></textarea>
                     <span class="form-message" style = "color: red;"></span>
                 </div>
+               
                 <input type="hidden" name="id" value="<%= items.id%>" >
                 <input type="hidden" name="image_old" value="<%= items.avatar%>" >
             </div>
@@ -85,13 +100,26 @@
             </div>
         </form>
 
-    </div>
-
 <script>
     CKEDITOR.replace('content');
 </script>
 <!--Custom Validator-->
 <script src="/backend/js/customValidator.js"></script> 
+<script>
+    Validator({
+        form: '#form-category',
+        errorSelector: '.form-message',
+        rules: [
+            Validator.isRequired('#name'),
+            Validator.minLength('#name', 6, 'Name phải có tối thiểu 6 ký tự'),
+            Validator.isRequired('#ordering'),
+            Validator.minMaxInt('#ordering', 1, 100, 'Ordering phải số nguyên và có giá trị từ 1 đến 100'),
+            Validator.isSelected('#status', 'Vui lòng chọn trường status'),
+            Validator.isSelected('#category', 'Vui lòng chọn trường category'),
+        ],
+    });
+</script>
+
 <script>
     Validator({
         form: '#form-category',

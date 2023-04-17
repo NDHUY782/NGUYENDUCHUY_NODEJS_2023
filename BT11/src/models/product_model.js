@@ -28,8 +28,22 @@ const ProductModel = new Schema({
         user_id: Number,
         user_name: String,
         time: Date,
-    }
-}) 
+    },
+    quantity : {
+        type : Number,
+    },
+    price : {
+        type : Number,
+    },
+    discount : {
+        type : Number,
+    },
+    arrCheck : [
+        String,
+    ],
+},{
+    timestamps : true
+})
 
 
 module.exports = model('products' , ProductModel)

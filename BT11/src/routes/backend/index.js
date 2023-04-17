@@ -22,4 +22,6 @@ router.use('/sendmail',require('./send_mail'))
 router.use('/product',require('./product'))
 router.use('/category_product',require('./category_product'))
 
+
+
 module.exports = router

@@ -78,7 +78,4 @@ module.exports = {
         await SliderService.getFilterCategory(req, res)
     },
 
-    getRss: async (req , res , next) => {
-        res.send('Hello')
-    },
 }
