@@ -1,0 +1,55 @@
+đơn hàng {
+	id_user
+	tên sản phẩm(hình ảnh)
+
+	product {
+		id_product
+		tên
+		price_product(lưu vì có giảm giá)
+		số lượng sản phẩm 
+		
+	}
+	
+	
+	
+
+
+	tổng tiền
+
+	đặt hàng{
+		địa chỉ vân chuyển
+		
+	}
+	sản phẩm liên quan
+	lượt đánh giá
+	note
+	hình thức thanh toán 
+	ngày đặt
+	ngày đi
+	ngày đến
+	status
+}
+
+mã giảm giá {
+	tên(slug)
+	mã code
+	giới hạn tiền giảm
+	%/số tiền giảm giá
+	chọn loại giảm giá(% hay là số tiền)
+	số lượng(giới hạn)
+	còn lại
+	ngày bắt đầu-ngày kết thúc
+	status
+}
+
+phí vận chuyển {
+	tên
+	(chọn dịch vụ giao hàng
+	số km
+	số tiền 1km)
+	tổng tiền
+	mã free ship
+	status
+}
+
+
