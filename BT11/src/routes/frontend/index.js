@@ -15,6 +15,9 @@ router.use('/blog_detail' , require('./blog_detail'))
 
 router.use('/login' , require('./login'))
 
+router.use('/register',require('../frontend/user'))
+
+
 
 
 module.exports = router;

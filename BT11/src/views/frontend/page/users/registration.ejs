@@ -1,0 +1,42 @@
+
+
+<h1>User Registration Form</h1>
+
+    <form action="" method="post"enctype="multipart/form-data">
+
+        <input type="text"  name="name" placeholder="enter name" autofocus />
+        <br><br>
+
+        <input type="email" name="email" placeholder="Enter ur mail">
+        <br><br>
+
+        <input type="text" name="mno" placeholder="Enter phomenumber">
+        <br><br>
+
+
+        <input type="file" name="image" required>
+        <br><br>
+
+
+        <input type="password" placeholder="Password" name="password"  value="" autofocus />
+        <br><br>
+
+        <button type="submit" value="register">
+            Register</button>
+       
+    </form>	
+ 
+    <% 
+        if (typeof message !== 'undefined') {
+            %>
+                <p style="color: green;" ><%= message %></p>
+            <%
+
+        }
+        else {
+
+        }
+    %>
+
+
+<%- include ../../elements/footer.ejs -%>

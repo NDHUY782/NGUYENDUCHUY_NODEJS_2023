@@ -24,4 +24,9 @@ router.use('/category_product',require('./category_product'))
 
 
 
+
+
+
+
+
 module.exports = router
