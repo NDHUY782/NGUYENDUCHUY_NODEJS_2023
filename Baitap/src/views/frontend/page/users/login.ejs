@@ -1,0 +1,50 @@
+
+<% 
+        if (typeof message !== 'undefined') {
+            %>
+                <p style="color: green;" ><%= message %></p>
+            <%
+
+        }
+        else {
+
+        }
+%>
+<h1 >ĐĂNG NHẬP</h1>
+ <div class="header-bottom">
+	 <div class="header-right w3agile">
+		 <div class="header-left-bottom agileinfo">
+
+		  <form action="/login/login" method="post">
+			 <!-- <input type="email"  name="username"  autofocus />
+			 <input type="password" placeholder="Password" name="password"  value="" autofocus />
+			 <div class="remember">
+			  <div class="forgot">
+				  <h6><a href="/register ">Đăng ký</a></h6>
+			  </div>
+			 <div class="clear"> </div>
+		   </div>
+			 <button type="submit" class="btn btn-sm btn-success mr-1">
+				Log In</button> -->
+
+				<input type="email" name="email" required placeholder="Enter mail">
+				<br><br>
+				<input type="password" name="password" required placeholder="Enter password">
+				<br><br>
+				<div class="remember">
+					<div class="forgot">
+						<h6><a href="/register ">Đăng ký</a></h6>
+					</div>
+				<input type="submit" value="Login">
+				<br><br>
+		 </form>	
+		 <a href="/forget">Forget</a>
+	 </div>
+   
+ </div>
+</div>
+
+
+
+
+<%- include ../../elements/footer.ejs -%>
