@@ -17,9 +17,9 @@ router
     .route('/')
     .get(auth.isLogout,UserController.forgetPasswordLoad)
 
-// router
-//     .route('/')
-//     .post(auth.isLogout,UserController.resetPassword)
+router
+    .route('/')
+    .post(auth.isLogout,UserController.resetPassword)
 
 
 

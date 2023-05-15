@@ -126,7 +126,7 @@ const insertUser = async (req,res) => {
 
             sendMail(req.body.name,req.body.email,userData._id)
 
-            res.render('./../views/frontend/page/users/registration.ejs',{message:"ur registration has been successfully"})
+            res.render('./../views/frontend/page/users/registration.ejs',{message:"ur registration has been successfully, Please check ur mail to verify"})
         }
         else {
             es.render('./../views/frontend/page/users/registration.ejs',{message:"ur registration has been fallure"})
@@ -250,23 +250,23 @@ const forgetPasswordLoad = async(req,res)=> {
         console.log(error.message)
     }
 }
-// const resetPassword = async(req,res)=> {
-//     try {
-//         const password = req.body.password;
-//         const user_id = req.body.user_id;
-//         console.log(password)
+const resetPassword = async(req,res)=> {
+    try {
+        const password = req.body.password;
+        const user_id = req.body.user_id;
+        console.log(password)
         
-//         const secure_password = await securePassword(password)
+        const secure_password = await securePassword(password)
 
 
-//         const updatedData = await UserModel.findByIdAndUpdate({_id:user_id},{$set:{ password: secure_password, token:''}})
+        const updatedData = await UserModel.findByIdAndUpdate({_id:user_id},{$set:{ password: secure_password, token:''}})
 
-//         res.redirect('/login')
+        res.redirect('/login')
 
-//     } catch (error) {
-//         console.log(error.message)
-//     }
-// }
+    } catch (error) {
+        console.log(error.message)
+    }
+}
 module.exports = {
     loadRegister,
     insertUser,
@@ -278,5 +278,5 @@ module.exports = {
     forgetLoad,
     forgetVerify,
     forgetPasswordLoad,
-    // resetPassword,
+    resetPassword,
 }

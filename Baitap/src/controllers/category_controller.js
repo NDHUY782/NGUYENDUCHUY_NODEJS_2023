@@ -9,7 +9,7 @@ module.exports = {
         // Promise.all([])
         let { data, currentStatus, keyword, pagination, sortType, sortField }  = await CategoryService.getAll(req)
         let statusFilter                                  = await CategoryService.countAll(req)
-        let pageTitle = 'HELOOOOO'
+        let pageTitle = 'Category'
  
         res.render(`${renderName}list` , {
             items :        data,

@@ -12,6 +12,8 @@ router
 router
     .route('/product')
     .get(BlogController.ListProduct)
+
+
     
 router
     .route('/blog(/:slug)?')
