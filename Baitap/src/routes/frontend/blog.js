@@ -9,9 +9,7 @@ router
     .route('/')
     .get(BlogController.ListMenu)
     
-router
-    .route('/product')
-    .get(BlogController.ListProduct)
+
     
 router
     .route('/blog(/:slug)?')

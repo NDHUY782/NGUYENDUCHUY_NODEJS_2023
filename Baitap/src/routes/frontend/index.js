@@ -13,8 +13,12 @@ router.use((req, res, next) => {
 router.use('/' ,Middleware_menu, require('./home'))
 router.use('/contact' , require('./contact'))
 router.use('/blog' , require('./blog'))
+
 router.use('/blog_detail' , require('./blog_detail'))
-router.use('/product_detail' , require('./product_detail'))
+
+router.use('/product' , require('./product'))
+
+// router.use('/product_detail' , require('./product_detail'))
 
 router.use('/login' , require('./login'))
 router.use('/register',require('./user'))

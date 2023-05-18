@@ -9,10 +9,9 @@ router
     .route('/')
     .get(BlogController.ListMenu)
     
-router
-    .route('/product')
-    .get(BlogController.ListProduct)
-
+// router
+//     .route('/product')
+//     .get(BlogController.ListProduct)
 
     
 router

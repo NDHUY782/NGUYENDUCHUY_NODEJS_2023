@@ -62,79 +62,20 @@
 
 						<div id="portfolio" class="portfolio row grid-container gutter-50">
 
-							<div class="portfolio-item col-12 col-sm-6 col-md-4 mb-3 mb-sm-0">
-								<div class="book-wrap">
-									<div class="book-card">
-										<a href="/frontend/images/frontend/demos/writer/include/ajax/book-page.html" class="item-quick-view book-image" data-lightbox="ajax"><img src="/frontend/demos/writer/images/books/1.png" alt="Book Image"></a>
-										<div class="book-detail">
-											<h2 class="book-title"><a href="#">The Key of Mind</a></h2>
-											<small class="book-category"><a href="#">03 Jun, 2021</a></small>
-											<div class="button button-white button-light text-capitalize button-circle"><i class="icon-line-zoom-in"></i><span>Quick View</span></div>
-										</div>
-									</div>
-								</div>
-							</div>
+							
 							<div class="portfolio-item col-12 col-sm-6 col-md-4 mb-3 mb-sm-0">
 								<div class="book-wrap">
 									<div class="book-card">
 										<a href="/frontend/demos/writer/include/ajax/book-page.html" class="item-quick-view book-image" data-lightbox="ajax"><img src="/frontend/demos/writer/images/books/2.png" alt="Book Image"></a>
 										<div class="book-detail">
-											<h2 class="book-title"><a href="#">Knight Of The Light</a></h2>
+											<h2 class="book-title"><a href="">Knight Of The Light</a></h2>
 											<small class="book-category"><a href="#">11 Mar, 2021</a></small>
 											<div class="button button-white button-light text-capitalize button-circle"><i class="icon-line-zoom-in"></i><span>Quick View</span></div>
 										</div>
 									</div>
 								</div>
 							</div>
-							<div class="portfolio-item col-12 col-sm-6 col-md-4 mb-3 mb-sm-0">
-								<div class="book-wrap">
-									<div class="book-card">
-										<a href="/frontend/demos/writer/include/ajax/book-page.html" class="item-quick-view book-image" data-lightbox="ajax"><img src="/frontend/demos/writer/images/books/3.png" alt="Book Image"></a>
-										<div class="book-detail">
-											<h2 class="book-title"><a href="#">Jars and the Ten Killer</a></h2>
-											<small class="book-category"><a href="#">31 Jan, 2021</a></small>
-											<div class="button button-white button-light text-capitalize button-circle"><i class="icon-line-zoom-in"></i><span>Quick View</span></div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<div class="portfolio-item col-12 col-sm-6 col-md-4 mb-3 mb-sm-0">
-								<div class="book-wrap">
-									<div class="book-card">
-										<a href="/frontend/demos/writer/include/ajax/book-page.html" class="item-quick-view book-image" data-lightbox="ajax"><img src="/frontend/demos/writer/images/books/4.png" alt="Book Image"></a>
-										<div class="book-detail">
-											<h2 class="book-title"><a href="#">Loves Without Flaws</a></h2>
-											<small class="book-category"><a href="#">22 Nov, 2021</a></small>
-											<div class="button button-white button-light text-capitalize button-circle"><i class="icon-line-zoom-in"></i><span>Quick View</span></div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="portfolio-item col-12 col-sm-6 col-md-4 mb-3 mb-sm-0">
-								<div class="book-wrap">
-									<div class="book-card">
-										<a href="/frontend/demos/writer/include/ajax/book-page.html" class="item-quick-view book-image" data-lightbox="ajax"><img src="/frontend/demos/writer/images/books/5.png" alt="Book Image"></a>
-										<div class="book-detail">
-											<h2 class="book-title"><a href="#">Pirates Of Water</a></h2>
-											<small class="book-category"><a href="#">01 Sep, 2021</a></small>
-											<div class="button button-white button-light text-capitalize button-circle"><i class="icon-line-zoom-in"></i><span>Quick View</span></div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div class="portfolio-item col-12 col-sm-6 col-md-4 mb-3 mb-sm-0">
-								<div class="book-wrap">
-									<div class="book-card">
-										<a href="/frontend/demos/writer/include/ajax/book-page.html" class="item-quick-view book-image" data-lightbox="ajax"><img src="/frontend/demos/writer/images/books/6.png" alt="Book Image"></a>
-										<div class="book-detail">
-											<h2 class="book-title"><a href="#">Amusing The Jungle</a></h2>
-											<small class="book-category"><a href="#">10 Feb, 2021</a></small>
-											<div class="button button-white button-light text-capitalize button-circle"><i class="icon-line-zoom-in"></i><span>Quick View</span></div>
-										</div>
-									</div>
-								</div>
-							</div>
+							
 
 						</div>
 
@@ -225,3 +166,8 @@
 				</div>
 			</div>
 		</section><!-- #content end -->
+		<script src="/socket.io/socket.io.js"></script>
+	<script>
+	var socket = io();
+    socket.emit('router_user','home')
+	</script>
