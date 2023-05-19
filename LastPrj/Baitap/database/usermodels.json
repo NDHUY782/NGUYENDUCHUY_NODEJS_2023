@@ -1,0 +1,38 @@
+[{
+  "_id": {
+    "$oid": "645b397fc013dc3d34b325bc"
+  },
+  "name": "lâm vy",
+  "password": "$2b$10$GfDvB.z8kHhZ6QS37Mb03uXp07uCcVNPcLW4X..ZoRBTncspyFTkS",
+  "email": "vy.calinus@gmail.com",
+  "mobile": "0931810846",
+  "image": "1683700095864-hhhh.jpg",
+  "is_admin": 0,
+  "is_varified": 1,
+  "createdAt": {
+    "$date": "2023-05-10T06:28:15.942Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-10T06:28:15.942Z"
+  },
+  "__v": 0
+},{
+  "_id": {
+    "$oid": "6460a23e4a48b1bf299dfd52"
+  },
+  "name": "duc huy",
+  "password": "$2b$10$18x34J/4SAchLQxyRET5q.qgCGUdUzxQZ1/DOh.HL10comzaQXdNq",
+  "email": "huynguyen07080112@gmail.com",
+  "mobile": "111",
+  "image": "1684054590267-vat-ly-dai-cuong-pham-thi-cuc.jpg",
+  "is_admin": 1,
+  "is_varified": 1,
+  "token": "",
+  "createdAt": {
+    "$date": "2023-05-14T08:56:30.349Z"
+  },
+  "updatedAt": {
+    "$date": "2023-05-14T08:56:37.319Z"
+  },
+  "__v": 0
+}]
