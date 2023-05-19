@@ -9,7 +9,7 @@ router.use((req, res, next) => {
     next();
 });
 
-
+router.use('/auth',require('./auth'))
 router.use('/' ,Middleware_menu, require('./home'))
 router.use('/contact' , require('./contact'))
 router.use('/blog' , require('./blog'))

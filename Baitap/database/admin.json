@@ -1,0 +1,20 @@
+[{
+    "_id": {
+      "$oid": "6457317241cce322bca7a140"
+    },
+    "name": "Nguyễn Đức Huy",
+    "email": "huyadmin@gmail.com",
+    
+    "password": "$2b$10$TJYW4VSuyvZRUdWYSEbEl.pE9xeTh1nhXizSgirgiLX5z0oG9p4Li",
+    
+    "image": "https://c3nguyentatthanhhp.edu.vn/wp-content/uploads/2023/04/99-Anh-Avatar-Tiktok-Dep-Cute-Ngau-Tang-Nguoi-Dung.jpg",
+    "createdAt": {
+      "$date": "2023-05-07T05:04:50.611Z"
+    },
+    "updatedAt": {
+      "$date": "2023-05-07T05:04:50.611Z"
+    },
+    "admin_ID": 1,
+    "slug": "nguyen-duc-huy",
+    "__v": 0
+  }]

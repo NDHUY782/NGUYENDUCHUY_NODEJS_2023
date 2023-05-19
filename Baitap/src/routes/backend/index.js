@@ -17,8 +17,10 @@ router.use('/menu',require('./menu'))
 
 router.use('/slider',require('./slider'))
 
-router.use('/authen',require('./authen'))
+
+
 router.use('/sendmail',require('./send_mail'))
+
 router.use('/product',require('./product'))
 // router.use('/coupon',require('./coupon'))
 

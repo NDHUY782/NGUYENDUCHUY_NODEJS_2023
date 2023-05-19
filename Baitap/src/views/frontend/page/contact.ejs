@@ -4,7 +4,6 @@
 
 			<div class="swiper-container swiper-parent">
 				<div class="swiper-wrapper">
-					<% data_slider.forEach((value, index) =>{ %>
 						<div class="swiper-slide">
 							<div class="container">
 								<div class="position-absolute pos-y-end mb-3 row w-100 col-mb-30">
@@ -39,9 +38,8 @@
 									</div>
 								</div>
 							</div>
-							<div class="swiper-slide-bg" style="background-image: linear-gradient(to bottom, transparent, rgba(25, 53, 50, .9)), url('uploads/sliders/<%= value.avatar%>');"></div>
 						</div>
-					<% }) %>
+
 
 				</div>
 				<div class="slider-arrow-left">
